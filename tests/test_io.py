@@ -4,7 +4,7 @@ import os
 import tempfile
 
 import pandas as pd
-import pytest
+
 from fruit_classifier.io import convert_parquet_to_csv
 
 

@@ -1,6 +1,7 @@
 """Tests for configuration loading."""
 
 import pytest
+
 from fruit_classifier.config import Config
 
 

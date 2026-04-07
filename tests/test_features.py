@@ -41,8 +41,10 @@ def test_preprocess_image_resizes_input():
 
 
 def test_featurize_series_output_length():
-    import pandas as pd
     from unittest.mock import MagicMock
+
+    import pandas as pd
+
     from fruit_classifier.features import featurize_series
 
     mock_model = MagicMock()

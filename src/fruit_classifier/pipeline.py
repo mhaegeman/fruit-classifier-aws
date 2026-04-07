@@ -5,10 +5,10 @@ import logging
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
+from fruit_classifier import io as fruit_io
 from fruit_classifier.config import Config
 from fruit_classifier.features import build_feature_extractor, make_featurize_udf
 from fruit_classifier.reduction import perform_pca
-from fruit_classifier import io as fruit_io
 
 logging.basicConfig(
     level=logging.INFO,

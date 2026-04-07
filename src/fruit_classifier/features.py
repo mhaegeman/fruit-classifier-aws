@@ -6,10 +6,10 @@ import logging
 import numpy as np
 import pandas as pd
 from PIL import Image
+from pyspark.sql.functions import PandasUDFType, pandas_udf
 from tensorflow.keras import Model
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2, preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
-from pyspark.sql.functions import pandas_udf, PandasUDFType
 
 logger = logging.getLogger(__name__)
 
