@@ -4,17 +4,17 @@ import glob
 import logging
 
 import pandas as pd
-from pyspark.sql import DataFrame, SparkSession
-from pyspark.sql.functions import element_at, split
 
 logger = logging.getLogger(__name__)
 
 
-def load_images(spark: SparkSession, path: str) -> DataFrame:
+def load_images(spark, path: str):
     """Load binary JPEG files from S3 into a Spark DataFrame.
 
     Adds a 'label' column derived from the parent directory name.
     """
+    from pyspark.sql.functions import element_at, split
+
     logger.info("Loading images from %s", path)
     images = (
         spark.read.format("binaryFile")
@@ -25,7 +25,7 @@ def load_images(spark: SparkSession, path: str) -> DataFrame:
     return images.withColumn("label", element_at(split(images["path"], "/"), -2))
 
 
-def save_parquet(df: DataFrame, path: str) -> None:
+def save_parquet(df, path: str) -> None:
     """Persist a Spark DataFrame as Parquet (overwrite mode)."""
     logger.info("Writing Parquet to %s", path)
     df.write.mode("overwrite").parquet(path)
