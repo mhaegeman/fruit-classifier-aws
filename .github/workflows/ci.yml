@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install ruff
+        run: pip install ruff>=0.1.0
+      - name: Run ruff
+        run: ruff check src/ tests/
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install lightweight dependencies
+        run: |
+          pip install pandas pyarrow pillow numpy pytest pytest-mock
+          pip install -e . --no-deps
+      - name: Run tests
+        run: pytest tests/ -v
+        # Note: tests requiring TensorFlow or Spark are automatically skipped
+        # via pytest.importorskip when those packages are not installed.
